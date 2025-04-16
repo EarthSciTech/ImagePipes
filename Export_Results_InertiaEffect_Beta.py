@@ -129,7 +129,7 @@ def process_folder(folder):  # Define a function to process a folder containing 
         # Mixing scale: width of plume across transverse direction or sqrt of concentration variance
         mixing_scale = np.sqrt(np.var(data_thresh)) if data_thresh.size > 0 else 0  # Calculate mixing scale (sqrt of variance)
         
-        # Scalar dissipation rate (SDR): 𝜒=𝐷∫∣∇𝐶∣^2 𝑑A normalised to D, which is reformulated as 𝜒/𝐷=∫∣∇𝐶∣^2 𝑑A [=] M^2.m^2
+        # Scalar dissipation rate (SDR): 𝜒=𝐷∫∣∇𝐶∣^2 𝑑A normalised to D, which is reformulated as 𝜒/𝐷=∫∣∇𝐶∣^2 𝑑A [=] M^2
         grad_y, grad_x = np.gradient(slice_data)  # Compute gradients in y and x directions
         grad_mag = np.sqrt(grad_x**2 + grad_y**2)  # Calculate gradient magnitude
         sdr = np.sum(grad_mag[mask]**2) * data_thresh.size * voxel_area  # Calculate Scalar dissipation rate (SDR) scaled by area
@@ -138,7 +138,7 @@ def process_folder(folder):  # Define a function to process a folder containing 
         sdr_list.append(sdr)  # Store SDR for global std dev
 
         # Gradient magnitude (integrated ‖∇C‖ across the domain)
-        gradient_data.append([i, np.mean(grad_mag[mask]), np.std(grad_mag[mask]), elevation])  # Append mean and std dev of gradient magnitude
+        gradient_data.append([i, np.mean(grad_mag[mask]), np.std(grad_mag[mask]), elevation])  # Append mean and std dev of gradient magnitude [=] M/m
 
         # Concentration Homogeneity Index (CHI, 𝜁)
         # CHI = 1 - (σ²_C/σ²_Cmax)
