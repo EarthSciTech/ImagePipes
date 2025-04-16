@@ -81,7 +81,7 @@ def process_folder(folder):  # Define a function to process a folder containing 
         # Spatial variance (σ²)
         # σ² = variance × area
         var = np.var(data_thresh) * data_thresh.size * voxel_area  # Calculate variance scaled by area and size
-        std_var = np.std((data_thresh - np.mean(data_thresh))**2) * data_thresh.size * voxel_area  # Calculate std dev of variance
+        std_var = np.std((data_thresh - np.mean(data_thresh))**2) * np.sqrt(data_thresh.size) * voxel_area  # Calculate std dev of variance
         
         # Cross-sectional Dilution index E
         # E = - ∑ C log(C) dx dy ≈ -∑ C log(C) * voxel_area (assuming normalised)
@@ -89,7 +89,7 @@ def process_folder(folder):  # Define a function to process a folder containing 
         C_norm = flat / np.sum(flat) if flat.sum() > 0 else np.array([1])  # Normalize concentrations, default to [1] if sum is 0
         entropy = -C_norm * np.log(C_norm)  # Compute entropy for each value
         E = np.sum(entropy) * data_thresh.size * voxel_area  # Calculate dilution index (E) scaled by area and size
-        std_E = np.std(entropy) * data_thresh.size * voxel_area  # Calculate std dev of entropy
+        std_E = np.std(entropy) * np.sqrt(data_thresh.size) * voxel_area  # Calculate std dev of entropy
         
         spreading_data.append([i, var, std_var, elevation, E, std_E, elevation])  # Append spreading metrics
 
