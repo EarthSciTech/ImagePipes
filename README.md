@@ -59,6 +59,7 @@ Sediment structure and grain morphology assessment
 Its modular structure also makes it useful in materials science, medical imaging, and machine learning pre-processing.
 
 🧰 Built With:
+
 NumPy – numerical computation
 
 SciPy – advanced image processing and resampling
