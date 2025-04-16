@@ -4,6 +4,7 @@ ImagePipes is a modular and extensible Python-based toolkit designed for process
 These pipelines were created and tested in real-world research projects at ETH Zürich, Eawag, and Empa, and are now made publicly available to support the broader scientific and engineering community.
 
 🔧 Core Functionalities
+
 📌 Image Registration
 Rigid and Affine Registration with Elastix
 Align misaligned or distorted image stacks using robust multi-resolution, affine transformations via the Elastix library.
