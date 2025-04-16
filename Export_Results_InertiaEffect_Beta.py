@@ -130,7 +130,7 @@ def process_folder(folder):  # Define a function to process a folder containing 
         mixing_scale = np.sqrt(np.var(data_thresh)) if data_thresh.size > 0 else 0  # Calculate mixing scale (sqrt of variance)
         
         # Scalar dissipation rate (SDR): 𝜒=𝐷∫∣∇𝐶∣^2 𝑑A normalised to D, which is reformulated as 𝜒/𝐷=∫∣∇𝐶∣^2 𝑑A [=] M^2
-        grad_y, grad_x = np.gradient(slice_data)  # Compute gradients in y and x directions
+        grad_y, grad_x = np.gradient(slice_data, voxel_size, voxel_size)  # Compute gradients in y and x directions
         grad_mag = np.sqrt(grad_x**2 + grad_y**2)  # Calculate gradient magnitude
         sdr = np.sum(grad_mag[mask]**2) * data_thresh.size * voxel_area  # Calculate Scalar dissipation rate (SDR) scaled by area
         axial_mixing_data.append([i, mixing_scale, 0, elevation, sdr, 0, elevation])  # Append with placeholder std dev
