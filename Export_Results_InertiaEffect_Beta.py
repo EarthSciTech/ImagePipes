@@ -203,10 +203,10 @@ def process_folder(folder):  # Define a function to process a folder containing 
     # Global Dispersion Sheets
     # Transverse dispersion (D_T​ =1/N​ ∑σ_T^2), mean of slice-wise transverse variances.
     transverse_dispersion = [["Transverse Dispersion (D_T, m²)", np.mean(trans_var_list)],  # Calculate mean transverse dispersion
-                             ["Std Dev", np.std(trans_var_list)]]  # Append std dev of transverse dispersion
+                             ["Std Dev D_T, m²", np.std(trans_var_list)]]  # Append std dev of transverse dispersion
     # Longitudinal dispersion (D_L = var(z_centroid)), variance of the z-centroid positions (across slices)
     longitudinal_dispersion = [["Longitudinal Dispersion (D_L, m²)", np.mean(long_var_list)],  # Calculate variance of z-positions
-                               ["Std Dev", np.std(long_var_list)]]  # Append std dev of z-positions
+                               ["Std Dev D_L, m²", np.std(long_var_list)]]  # Append std dev of z-positions
 
     return (  # Return all computed data as a tuple
         mean_concentration_data, spreading_data, centroid_mode_data,
@@ -229,15 +229,15 @@ def save_to_excel(filepath, *sheets):  # Define a function to save data to an Ex
             if name == "mean concentration":  # Define columns for mean concentration sheet
                 columns = ["Slice Number", "Mean (M)", "Std Dev (Mean, M)", "Norm to Max", "Std Dev (Norm to Max)", "Norm to First", "Std Dev (Norm to First)", "Elevation (m)"]
             elif name == "spreading":  # Define columns for spreading sheet
-                columns = ["Slice Number", "Spatial Variance (σ², m²)", "Std Dev σ²", "Elevation (m)", "Dilution Index (E, m²)", "Std Dev E", "Elevation (m)"]
+                columns = ["Slice Number", "Spatial Variance (σ², m²)", "Std Dev σ², m²", "Elevation (m)", "Dilution Index (E, m²)", "Std Dev E, m²", "Elevation (m)"]
             elif name == "centroid & mode":  # Define columns for centroid & mode sheet
                 columns = ["Slice Number", "Centroid X", "Centroid Y", "Elevation (m)", "Mode X", "Mode Y", "Elevation (m)"]
             elif name == "skewness & kurtosis":  # Define columns for skewness & kurtosis sheet
                 columns = ["Slice Number", "Skewness", "std. dev. Skewness", "Elevation (m)", "Kurtosis", "std. dev. Kurtosis", "Elevation (m)"]
             elif name == "axial mixing":  # Define columns for axial mixing sheet
-                columns = ["Slice Number", "Mixing Scale (m)", "std. dev. Mixing Scale (m)", "Elevation (m)", "SDR/D (M².m²)", "std. dev. SDR (M².m²)", "Elevation (m)"]
+                columns = ["Slice Number", "Mixing Scale (m)", "std. dev. Mixing Scale (m)", "Elevation (m)", "SDR/D (M²)", "std. dev. SDR/D (M²)", "Elevation (m)"]
             elif name == "gradient magnitude":  # Define columns for gradient sheet
-                columns = ["Slice Number", "Mean Gradient (M)", "Std Dev Mean Gradient (M)", "Elevation (m)"]
+                columns = ["Slice Number", "Mean Gradient (M/m)", "Std Dev Mean Gradient (M/m)", "Elevation (m)"]
             elif name == "CHI":  # Define columns for CHI sheet
                 columns = ["Slice Number", "CHI", "std. dev. CHI", "Elevation (m)"]
             elif name == "iso-surface area":  # Define columns for iso-surface area sheet
