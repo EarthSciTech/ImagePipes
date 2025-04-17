@@ -88,8 +88,8 @@ def process_folder(folder):  # Define a function to process a folder containing 
         flat = data_thresh[data_thresh > 0]  # Filter out zeros for entropy calculation
         C_norm = flat / np.sum(flat) if flat.sum() > 0 else np.array([1])  # Normalize concentrations, default to [1] if sum is 0
         entropy = -C_norm * np.log(C_norm)  # Compute entropy for each value
-        E = np.sum(entropy) * data_thresh.size * voxel_area  # Calculate dilution index (E) scaled by area and size
-        std_E = np.std(entropy) * np.sqrt(data_thresh.size) * voxel_area  # Calculate std dev of entropy
+        E = np.sum(entropy) * flat.size * voxel_area  # Calculate dilution index (E) scaled by area and size
+        std_E = np.std(entropy) * np.sqrt(flat.size) * voxel_area  # Calculate std dev of entropy
         
         spreading_data.append([i, var, std_var, elevation, E, std_E, elevation])  # Append spreading metrics
 
@@ -160,7 +160,7 @@ def process_folder(folder):  # Define a function to process a folder containing 
             intensities = slice_data[mask]  # Get intensity values from slice_data where mask is True
 
             # Use top N concentration values to focus on the plume core
-            top_m = 100  # Number of highest concentration points to consider
+            top_m = 1000  # Number of highest concentration points to consider
             top_indices = np.argpartition(intensities, -top_m)[-top_m:] if intensities.size >= top_m else np.arange(intensities.size) # Get the indices of the top intensities
 
             # Select top coordinates and corresponding intensities
