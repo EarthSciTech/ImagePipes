@@ -84,7 +84,6 @@ You are free to use, modify, distribute, and build upon this work with attributi
 
 👨‍🔬 Author:
 Amirsaman Rezaeyan
-Researcher at ETH Zürich, Eawag, & Empa
 
 📍 Zürich, Switzerland
-📧 amirsaman[dot]rezaeyan[@]gmail.com
+📧 amirsaman[dot]rezaeyan[@]gmail[dot]com
