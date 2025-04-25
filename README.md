@@ -15,7 +15,7 @@ Quickly compute and apply translation-only corrections using Fourier-based phase
 
 🧼 Noise Reduction:
 2D and 3D Non-Local Means (NLM) Denoising:
-Apply structure-preserving NLM filters on a slice-by-slice or volumetric basis, tuned to match Avizo/Amira denoising settings. Handles various data types and supports zero-padding.
+Apply structure-preserving NLM filters on a slice-by-slice or volumetric basis, tuned to match commercial denoising settings. Handles various data types and supports zero-padding.
 
 🧊 Segmentation & Clustering:
 K-Means Clustering of Masked Tomograms:
