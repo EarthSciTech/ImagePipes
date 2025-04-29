@@ -78,7 +78,7 @@ def process_folder(folder):  # Define a function to process a folder containing 
         ])
 
         # Spreading
-        # Spatial variance (σ²)
+        # Spatial variance (σ²), M².m²
         # σ² = variance × area
         var = np.var(data_thresh) * data_thresh.size * voxel_area  # Calculate variance scaled by area and size
         std_var = np.std((data_thresh - np.mean(data_thresh))**2) * np.sqrt(data_thresh.size) * voxel_area  # Calculate std dev of variance
@@ -229,7 +229,7 @@ def save_to_excel(filepath, *sheets):  # Define a function to save data to an Ex
             if name == "mean concentration":  # Define columns for mean concentration sheet
                 columns = ["Slice Number", "Mean (M)", "Std Dev (Mean, M)", "Norm to Max", "Std Dev (Norm to Max)", "Norm to First", "Std Dev (Norm to First)", "Elevation (m)"]
             elif name == "spreading":  # Define columns for spreading sheet
-                columns = ["Slice Number", "Spatial Variance (σ², m²)", "Std Dev σ², m²", "Elevation (m)", "Dilution Index (E, m²)", "Std Dev E, m²", "Elevation (m)"]
+                columns = ["Slice Number", "Spatial Variance (σ², M².m²)", "Std Dev σ², M².m²", "Elevation (m)", "Dilution Index (E, m²)", "Std Dev E, m²", "Elevation (m)"]
             elif name == "centroid & mode":  # Define columns for centroid & mode sheet
                 columns = ["Slice Number", "Centroid X", "Centroid Y", "Elevation (m)", "Mode X", "Mode Y", "Elevation (m)"]
             elif name == "skewness & kurtosis":  # Define columns for skewness & kurtosis sheet
