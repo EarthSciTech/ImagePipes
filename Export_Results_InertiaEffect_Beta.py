@@ -65,6 +65,7 @@ def process_folder(folder):  # Define a function to process a folder containing 
         data_thresh = slice_data[mask]  # Filter data to include only values above threshold
         
         # Mean Concentration
+        # Reference: Nironi, C., Salizzoni, P., Marro, M. et al. Dispersion of a Passive Scalar Fluctuating Plume in a Turbulent Boundary Layer. Part I: Velocity and Concentration Measurements. Boundary-Layer Meteorol 156, 415–446 (2015). https://doi.org/10.1007/s10546-015-0040-x
         mean_val = np.mean(data_thresh) if data_thresh.size > 0 else 0  # Calculate mean of thresholded data, 0 if empty
         std_val = np.std(data_thresh) if data_thresh.size > 0 else 0  # Calculate std dev of thresholded data, 0 if empty
         if first_slice_mean is None:  # Check if this is the first slice
@@ -78,13 +79,15 @@ def process_folder(folder):  # Define a function to process a folder containing 
         ])
 
         # Spreading
-        # Spatial variance (σ²), M².m²
+        # Concentration variance (σ²), M².m²
         # σ² = variance × area
+        # Reference: Kapoor, V., and P. K. Kitanidis (1998), Concentration fluctuations and dilution in aquifers, Water Resour. Res., 34(5), 1181–1193, doi:10.1029/97WR03608.
         var = np.var(data_thresh) * data_thresh.size * voxel_area  # Calculate variance scaled by area and size
-        std_var = np.std((data_thresh - np.mean(data_thresh))**2) * np.sqrt(data_thresh.size) * voxel_area  # Calculate std dev of variance
+        std_var = np.std((data_thresh - np.mean(data_thresh))**2) * np.sqrt(data_thresh.size) * voxel_area  # Calculate std dev of concentration variance
         
         # Cross-sectional Dilution index E
         # E = - ∑ C log(C) dx dy ≈ -∑ C log(C) * voxel_area (assuming normalised)
+        # Reference: Kitanidis, P. K. (1994), The concept of the Dilution Index, Water Resour. Res., 30(7), 2011–2026, doi:10.1029/94WR00762.
         flat = data_thresh[data_thresh > 0]  # Filter out zeros for entropy calculation
         C_norm = flat / np.sum(flat) if flat.sum() > 0 else np.array([1])  # Normalize concentrations, default to [1] if sum is 0
         entropy = -C_norm * np.log(C_norm)  # Compute entropy for each value
@@ -94,6 +97,7 @@ def process_folder(folder):  # Define a function to process a folder containing 
         spreading_data.append([i, var, std_var, elevation, E, std_E, elevation])  # Append spreading metrics
 
         # Centroid (xc = ∑x C(x) / ∑ C(x)) & Mode (maximum concentration position)
+        # Reference: Cassiani M, Ardeshiri H, Pisso I, et al. The dynamics of concentration fluctuations within passive scalar plumes in a turbulent neutral boundary layer. Journal of Fluid Mechanics. 2024;1001:A18. doi:10.1017/jfm.2024.861
         if data_thresh.size > 0:  # Check if there are values above threshold
             coords = np.argwhere(mask)  # Get coordinates of thresholded pixels
             intensities = slice_data[mask]  # Get intensity values at those coordinates
@@ -116,6 +120,7 @@ def process_folder(folder):  # Define a function to process a folder containing 
         total_elevations.append(elevation) # Store total elevation
 
         # Skewness E(C-C_mean)^3/std(C)^3 & Kurtosis E(C-C_mean)^4/std(C)^4
+        # Reference: Mole, N., Clarke, E.D. Relationships between higher moments of concentration and of dose in turbulent dispersion. Boundary-Layer Meteorol 73, 35–52 (1995). https://doi.org/10.1007/BF00708929
         if data_thresh.size > 2 and np.std(data_thresh) > 0:  # Check if enough data and non-zero std dev
             skew = np.mean(((data_thresh - np.mean(data_thresh)) / np.std(data_thresh))**3)  # Calculate skewness
             kurt = np.mean(((data_thresh - np.mean(data_thresh)) / np.std(data_thresh))**4)  # Calculate kurtosis
@@ -126,12 +131,15 @@ def process_folder(folder):  # Define a function to process a folder containing 
         kurt_list.append(kurt)  # Store kurtosis for global std dev
 
         # Axial Mixing
-        # Mixing scale: width of plume across transverse direction or sqrt of concentration variance
-        mixing_scale = np.sqrt(np.var(data_thresh)) if data_thresh.size > 0 else 0  # Calculate mixing scale (sqrt of variance)
+        # Mixing Scale or Characteristic Length of Mixing: width of plume across transverse direction or sqrt of concentration variance
+        # Reference: Dentz, M., Hidalgo, J.J. & Lester, D. Mixing in Porous Media: Concepts and Approaches Across Scales. Transp Porous Med 146, 5–53 (2023). https://doi.org/10.1007/s11242-022-01852-x
+        mixing_scale = np.sqrt(var) if data_thresh.size > 0 else 0  # Calculate mixing scale (sqrt of variance)
         
         # Scalar dissipation rate (SDR): 𝜒=𝐷∫∣∇𝐶∣^2 𝑑A normalised to D, which is reformulated as 𝜒/𝐷=∫∣∇𝐶∣^2 𝑑A [=] M^2
-        grad_y, grad_x = np.gradient(slice_data, voxel_size, voxel_size)  # Compute gradients in y and x directions
-        grad_mag = np.sqrt(grad_x**2 + grad_y**2)  # Calculate gradient magnitude
+        # Reference: N. B. Engdahl, T. R. Ginn and G. E. Fogg, Scalar dissipation rates in non-conservative transport systems, Journal of Contaminant Hydrology 2013 Vol. 149 Pages 46-60. https://doi.org/10.1016/j.jconhyd.2013.03.003
+        # Reference: Dentz, M., Hidalgo, J.J. & Lester, D. Mixing in Porous Media: Concepts and Approaches Across Scales. Transp Porous Med 146, 5–53 (2023). https://doi.org/10.1007/s11242-022-01852-x
+        grad_y, grad_x = np.gradient(slice_data, voxel_size, voxel_size)  # Compute gradients in y and x directions, which is a 2nd-order tensor or a vector
+        grad_mag = np.sqrt(grad_x**2 + grad_y**2)  # Calculate gradient magnitude, which is a scalar
         sdr = np.sum(grad_mag[mask]**2) * data_thresh.size * voxel_area  # Calculate Scalar dissipation rate (SDR) scaled by area
         axial_mixing_data.append([i, mixing_scale, 0, elevation, sdr, 0, elevation])  # Append with placeholder std dev
         mix_list.append(mixing_scale)  # Store mixing scale for global std dev
@@ -154,7 +162,8 @@ def process_folder(folder):  # Define a function to process a folder containing 
         iso_surface_data.append([i, iso_area, 0, elevation])  # Append with placeholder std dev
         iso_list.append(iso_area)  # Store iso-surface area for global std dev
 
-        # Transverse Variance
+        # Transverse Dispersion Variance or the standard deviations of the plume spread in the crosswind/horizontal direction
+        # Reference: Cassiani M, Ardeshiri H, Pisso I, et al. The dynamics of concentration fluctuations within passive scalar plumes in a turbulent neutral boundary layer. Journal of Fluid Mechanics. 2024;1001:A18. doi:10.1017/jfm.2024.861
         if data_thresh.size > 0:  # Check if there are values above threshold
             coords = np.argwhere(mask)  # Get coordinates of thresholded pixels
             intensities = slice_data[mask]  # Get intensity values from slice_data where mask is True
@@ -187,7 +196,8 @@ def process_folder(folder):  # Define a function to process a folder containing 
         transverse_variance_data.append([i, trans_var, 0, elevation])  # Append with placeholder std dev
         trans_var_list.append(trans_var)  # Store transverse variance for global std dev
 
-        # Longitudinal Variance    
+        # Longitudinal Variance or the standard deviations of the plume spread in the vertical direction
+        # Reference: Cassiani M, Ardeshiri H, Pisso I, et al. The dynamics of concentration fluctuations within passive scalar plumes in a turbulent neutral boundary layer. Journal of Fluid Mechanics. 2024;1001:A18. doi:10.1017/jfm.2024.861
         long_var = (elevation - np.average(total_elevations, weights=total_mean_c))**2 if total_mean_c else 0  # Calculate longitudinal variance (simplified)
         longitudinal_variance_data.append([i, long_var, 0, elevation])  # Append with placeholder std dev
         long_var_list.append(long_var)  # Store longitudinal variance for global std dev
@@ -195,7 +205,7 @@ def process_folder(folder):  # Define a function to process a folder containing 
     # Global Std Dev Updates
     for row in skew_kurt_data: row[2] = np.std(skew_list); row[5] = np.std(kurt_list)  # Update std dev for skewness and kurtosis
     for row in axial_mixing_data: row[2] = np.std(mix_list); row[5] = np.std(sdr_list)  # Update std dev for mixing scale and SDR
-    for row in chi_data: row[2] = np.std(chi_list)  # Update std dev for CHI☻
+    for row in chi_data: row[2] = np.std(chi_list)  # Update std dev for CHI
     for row in iso_surface_data: row[2] = np.std(iso_list)  # Update std dev for iso-surface area
     for row in transverse_variance_data: row[2] = np.std(trans_var_list)  # Update std dev for transverse variance
     for row in longitudinal_variance_data: row[2] = np.std(long_var_list)  # Update std dev for longitudinal variance
@@ -229,7 +239,7 @@ def save_to_excel(filepath, *sheets):  # Define a function to save data to an Ex
             if name == "mean concentration":  # Define columns for mean concentration sheet
                 columns = ["Slice Number", "Mean (M)", "Std Dev (Mean, M)", "Norm to Max", "Std Dev (Norm to Max)", "Norm to First", "Std Dev (Norm to First)", "Elevation (m)"]
             elif name == "spreading":  # Define columns for spreading sheet
-                columns = ["Slice Number", "Spatial Variance (σ², M².m²)", "Std Dev σ², M².m²", "Elevation (m)", "Dilution Index (E, m²)", "Std Dev E, m²", "Elevation (m)"]
+                columns = ["Slice Number", "Concentration Variance (σ², M².m²)", "Std Dev σ², M².m²", "Elevation (m)", "Dilution Index (E, m²)", "Std Dev E, m²", "Elevation (m)"]
             elif name == "centroid & mode":  # Define columns for centroid & mode sheet
                 columns = ["Slice Number", "Centroid X", "Centroid Y", "Elevation (m)", "Mode X", "Mode Y", "Elevation (m)"]
             elif name == "skewness & kurtosis":  # Define columns for skewness & kurtosis sheet
