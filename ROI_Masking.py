@@ -12,7 +12,7 @@ Prerequisites:
 - Input TIFF files must be readable by tifffile; ROI file must be in ImageJ .roi format.
 Dependencies: os, numpy, tifffile, roifile, scikit-image (install via pip install numpy tifffile roifile scikit-image).
 
-Code by: Amirsaman Rezaeyan, amirsaman[dot]rezaeyan[at sign]gmail[dot]com, Zürich, Switzerland, April 2025.
+Code by: Amirsaman Rezaeyan, Zürich, Switzerland, April 2025.
 """
 
 import os  # Import os module for file and directory operations
