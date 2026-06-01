@@ -14,7 +14,7 @@ Code Description:
  - Input .tif files must be readable by rasterio and contain single-band raster data.
  Dependencies: os, rasterio, numpy (install via pip install rasterio numpy).
  
-Code by: Amirsaman Rezaeyan, amirsaman.rezaeyan@gmail.com, Zürich, Switzerland, Feb 2025.
+Code by: Amirsaman Rezaeyan, Zürich, Switzerland, Feb 2025.
 """
 
 import os  # Module for file and directory operations
