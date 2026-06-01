@@ -1,5 +1,5 @@
-ImagePipes: MicroCT Image Processing Pipelines
--
+**ImagePipes: MicroCT Image Processing Pipelines**
+
 
 ImagePipes is a modular and extensible Python-based toolkit designed for processing, analyzing, and segmenting high-resolution 3D micro-computed tomography (µCT) images. Developed with a focus on porous media and geoscientific applications, this suite of scripts enables streamlined, reproducible workflows for transforming raw µCT image data into meaningful quantitative insights.
 
@@ -84,12 +84,10 @@ License:
 This project is licensed under the MIT License – see the LICENSE file for details.
 You are free to use, modify, distribute, and build upon this work with attribution.
 
-Author:
-Amirsaman Rezaeyan
--
+**Author: Amirsaman Rezaeyan**
 
 MIT Licensed: 2025-2026
 
---------------
+-----
 Cite as:
 Amirsaman Rezaeyan, 2025, ImagePipes: multi-modular, open-source pipelines for the analysis of X-ray micro-computed tomography images of porous media and physical processes in porous media, GitHub, Available at https://github.com/EarthSciTech/ImagePipes
