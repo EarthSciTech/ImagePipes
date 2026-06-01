@@ -12,7 +12,7 @@ Prerequisites:
 - Input TIFF files must be readable by imageio and represent single-band image data.
 Dependencies: os, imageio, numpy, scipy (install via pip install imageio numpy scipy).
 
-Code by: Amirsaman Rezaeyan, amirsaman.rezaeyan@gmail.com, Zürich, Switzerland, Feb 2025.
+Code by: Amirsaman Rezaeyan, Zürich, Switzerland, Feb 2025.
 """
 
 import os  # Import os module for file and directory operations
