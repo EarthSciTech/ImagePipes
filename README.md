@@ -85,7 +85,10 @@ You are free to use, modify, distribute, and build upon this work with attributi
 
 Author:
 Amirsaman Rezaeyan
+-
 
+MIT Licensed: 2025-2026
 
+--------------
 Cite as:
 Amirsaman Rezaeyan, 2025, ImagePipes: multi-modular, open-source pipelines for the analysis of X-ray micro-computed tomography images of porous media and physical processes in porous media, GitHub, Available at https://github.com/EarthSciTech/ImagePipes
