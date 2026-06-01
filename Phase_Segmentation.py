@@ -12,7 +12,7 @@ Prerequisites:
 - Input TIFF files must be readable by OpenCV, single-band, and aligned across tomogram, mask, and cluster directories.
 Dependencies: os, opencv-python, numpy, scipy (install via pip install opencv-python numpy scipy).
 
-Code by: Amirsaman Rezaeyan, amirsaman.rezaeyan@gmail.com, Zürich, Switzerland, Dec 2024.
+Code by: Amirsaman Rezaeyan, Zürich, Switzerland, Dec 2024.
 """
 
 import os  # Import the os module for file and directory operations
