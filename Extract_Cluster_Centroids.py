@@ -12,7 +12,7 @@ Prerequisites:
 - Input TIFF files must be readable by Pillow and represent single-band image data.
 Dependencies: os, numpy, pillow, pandas (install via pip install pillow numpy pandas).
 
-Code by: Amirsaman Rezaeyan, amirsaman.rezaeyan@gmail.com, Zürich, Switzerland, Jan 2025.
+Code by: Amirsaman Rezaeyan, Zürich, Switzerland, Jan 2025.
 """
 
 import os  # Import os module for file and directory operations
