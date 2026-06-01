@@ -22,7 +22,7 @@ Code Description:
  Dependencies: os, tifffile, numpy, scipy
  Install via: pip install tifffile numpy scipy
 
- Code by: Amirsaman Rezaeyan, amirsaman.rezaeyan@gmail.com, Zürich, Switzerland, April 2025.
+ Code by: Amirsaman Rezaeyan, Zürich, Switzerland, April 2025.
 """
 
 import os  # For file and folder operations
