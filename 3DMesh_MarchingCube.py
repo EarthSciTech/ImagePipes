@@ -13,7 +13,7 @@
  - Input TIFF files must be 2D slices of a 3D binary mask (e.g., 0 and 255 values).
  Dependencies: os, numpy, imageio, scikit-image (skimage), trimesh (install via pip install imageio scikit-image trimesh).
 
-Code by: Amirsaman Rezaeyan, amirsaman.rezaeyan@gmail.com, Zürich, Switzerland, April 2025.
+Code by: Amirsaman Rezaeyan, Zürich, Switzerland, April 2025.
 """
 
 import os  # Import os module for file and directory operations
