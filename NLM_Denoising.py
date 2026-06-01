@@ -13,7 +13,7 @@
  - Input TIFF files must be readable by tifffile and represent single-band image data.
  Dependencies: os, numpy, tifffile, scikit-image (install via pip install tifffile scikit-image).
 
-Code by: Amirsaman Rezaeyan, amirsaman.rezaeyan@gmail.com, Zürich, Switzerland, Feb 2025.
+Code by: Amirsaman Rezaeyan, Zürich, Switzerland, Feb 2025.
 """
 
 import os  # Import os module for file and directory operations
