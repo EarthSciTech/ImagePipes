@@ -1,4 +1,5 @@
 ImagePipes: MicroCT Image Processing Pipelines
+-
 
 ImagePipes is a modular and extensible Python-based toolkit designed for processing, analyzing, and segmenting high-resolution 3D micro-computed tomography (µCT) images. Developed with a focus on porous media and geoscientific applications, this suite of scripts enables streamlined, reproducible workflows for transforming raw µCT image data into meaningful quantitative insights.
 
