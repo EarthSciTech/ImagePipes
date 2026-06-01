@@ -18,7 +18,7 @@ Python script for performing robust 3D image registration using direct Elastix c
  - Input TIFF stacks must be single-channel images in a folder.
  Dependencies: os, subprocess, numpy, tifffile, SimpleITK (install via pip install SimpleITK).
  
- Code by: Amirsaman Rezaeyan, amirsaman.rezaeyan@gmail.com, Zürich, Switzerland, March 2025.
+ Code by: Amirsaman Rezaeyan, Zürich, Switzerland, March 2025.
 """
 
 import os            # Import os module for file and directory operations
