@@ -12,7 +12,7 @@ Prerequisites:
 - Input TIFF files must be readable by tifffile and represent single-band image data.
 Dependencies: os, numpy, tifffile, scikit-image, scipy (install via pip install numpy tifffile scikit-image scipy).
 
-Code by: Amirsaman Rezaeyan, amirsaman.rezaeyan@gmail.com, Zürich, Switzerland, April 2025.
+Code by: Amirsaman Rezaeyan, Zürich, Switzerland, April 2025.
 """
 
 import os  # Import os module for file and directory operations
