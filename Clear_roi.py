@@ -13,7 +13,7 @@ Prerequisites:
 - The .roi file must be in ImageJ format with polygon coordinates.
 Dependencies: numpy, tifffile, scikit-image (install via pip install numpy tifffile scikit-image).
 
-Code by: Amirsaman Rezaeyan, amirsaman.rezaeyan@gmail.com, Zürich, Switzerland, Mar 2025.
+Code by: Amirsaman Rezaeyan, Zürich, Switzerland, Mar 2025.
 """
 
 import numpy as np  # Import NumPy for numerical operations and array handling
